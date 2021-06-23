@@ -1,0 +1,5 @@
+01. bithi 110
+02. g 100
+03. bithi 80
+04. bithi 80
+05. anika 80
