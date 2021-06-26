@@ -35,5 +35,4 @@
   * Compile with:
       ```
        make && ./runningman
- 
       ``` 
