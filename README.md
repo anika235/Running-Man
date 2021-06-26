@@ -31,7 +31,7 @@
         sudo apt-get install libsdl2-ttf-dev
       ```
 
-    * Alternatively you can run ```setup.sh```
+   
   * Compile with:
       ```
        make && ./runningman
