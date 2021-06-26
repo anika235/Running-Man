@@ -279,7 +279,8 @@ void mousehandling_mode()
             Mix_HaltMusic();
             sound=false;
             Mix_PlayMusic(citysound,-1);
-             showmodemenu= false;
+            showmodemenu= false;
+            stop_music=false;
 		    go_to_menu=false;
             start=false;
 			frame=0;
@@ -320,7 +321,8 @@ void mousehandling_mode()
             Mix_HaltMusic();
             sound=false;
             Mix_PlayMusic(forestsound,-1);
-             showmodemenu= false;
+            showmodemenu= false;
+            stop_music=false;
 		    go_to_menu=false;
             start=false;
 		    frame=0;
