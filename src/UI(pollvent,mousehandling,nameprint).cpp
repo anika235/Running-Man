@@ -3,9 +3,8 @@
 int buttons,mouse_x,mouse_y,buttons1,mouse_x1,mouse_y1;
 int mode;
 int Scoremode;
-bool option=false;
+bool go_to_help=false;
 bool showhighscore=false;
-
 bool quit;
 
 void pollevent()
@@ -23,26 +22,33 @@ void pollevent()
             switch( e.key.keysym.scancode)
             {
                 case SDL_SCANCODE_SPACE:
-                if(ground)
+                if(!pause)
                 {
-                    up=1;
-                    down=0;
+                    if(ground)
+                    {
+                        up=1;
+                        down=0;
+                    }
                 }
                 break;
 
                 case SDL_SCANCODE_P:
                    
-                if(!go_to_menu && !option && !showhighscore)     
-                pause=true;
+                if(!go_to_menu && !go_to_help && !showhighscore &&!showmodemenu)
+                { 
+                   pause=true;
+                   Mix_PauseMusic();
+                }
+
                 break;
                                 
                 case SDL_SCANCODE_BACKSPACE:
                 if(!go_to_menu)
                 {
-                    if(option)
+                    if(go_to_help)
                     {
                         go_to_menu=true;
-                        option=false;
+                        go_to_help=false;
                     }
                     else if(showhighscore)
                     {
@@ -65,31 +71,41 @@ void pollevent()
                 break;
 
                 case SDL_SCANCODE_C:
-                if(pause && !go_to_menu)
-                pause=false;
+                
+                if(pause && !go_to_menu && !go_to_help && !showhighscore && !showmodemenu)
+                {
+                    pause=false;
+                    Mix_ResumeMusic();
+                }
                 break; 
 
                 case SDL_SCANCODE_S:
-                if(knifes_counter > 0)
+                if(!pause)
                 {
-                    knife[indicator.finish].hit.x = x_pos + 100;  
-                    knife[indicator.finish++].hit.y = y_pos + 40; //where the knives will come from
-                    knifes_counter--;
-                    Mix_PlayChannel(-1,weaponsound,0);
+                    if(knifes_counter > 0)
+                    {
+                        knife[indicator.finish].hit.x = x_pos + 100;  
+                        knife[indicator.finish++].hit.y = y_pos + 40; //where the knives will come from
+                        knifes_counter--;
+                        Mix_PlayChannel(-1,weaponsound,0);
+                    }
                 }
                 break;
                                 
                 case SDL_SCANCODE_M:
-                if( Mix_PausedMusic() == 1 )
+                if(!pause || go_to_menu)
                 {
-                    //Resume the music
-                    Mix_ResumeMusic();
-                }
-                //If the music is playing
-                 else
-                {
-                    //Pause the music
-                    Mix_PauseMusic();
+                    if( Mix_PausedMusic() == 1 )
+                    {
+                        //Resume the music
+                        Mix_ResumeMusic();
+                    }
+                    //If the music is playing
+                    else
+                    {
+                        //Pause the music
+                        Mix_PauseMusic();
+                    }
                 }
                 break;                      
                             
@@ -111,7 +127,7 @@ void mousehandling_middle()
     middle_menu();
     //get mouse coordinates
 	buttons = SDL_GetMouseState(&mouse_x, &mouse_y);
-
+    //continue
     if(mouse_x>=10 && mouse_x<= mWidth && mouse_y>= (SCREEN_HEIGHT/2)-100 && mouse_y<= (SCREEN_HEIGHT/2)-100+mHeight-15)
     {
         if(buttons & SDL_BUTTON(SDL_BUTTON_LEFT))
@@ -134,16 +150,17 @@ void mousehandling_middle()
         }
                            
     }
-
+   //newgame
 	if(mouse_x>=10 && mouse_x<= 10+mWidth && mouse_y>= (SCREEN_HEIGHT/2)-50+15 && mouse_y<= (SCREEN_HEIGHT/2)-70+ mHeight)
 	{
 		if(buttons & SDL_BUTTON(SDL_BUTTON_LEFT))
         {
             Mix_PlayChannel(-1,mouseclick,0);
+            showmodemenu= true;
             start=true;
             go_to_menu=false;
             pause=false;
-                            
+            mode=0;               
 		}
 
 	}
@@ -155,7 +172,7 @@ void mousehandling_middle()
         {
             Mix_PlayChannel(-1,mouseclick,0);
 		    go_to_menu=false;
-            option=true;
+            go_to_help=true;
 							
 		}
     }
@@ -195,15 +212,16 @@ void mousehandling_start()
     start_menu();
     //get mouse coordinates
 	buttons = SDL_GetMouseState(&mouse_x, &mouse_y);
-
+    //newgame
     if(mouse_x>=10 && mouse_x<= 10+mWidth && mouse_y>= (SCREEN_HEIGHT/2)-50 && mouse_y<= (SCREEN_HEIGHT/2)-70+ mHeight)
 	{
         if(buttons & SDL_BUTTON(SDL_BUTTON_LEFT))
         {
             Mix_PlayChannel(-1,mouseclick,0);
+            showmodemenu= true;
 		    go_to_menu=false;
             start=true;
-							
+			mode=0;				
 		}
 
 	}
@@ -215,7 +233,7 @@ void mousehandling_start()
         {
             Mix_PlayChannel(-1,mouseclick,0);           
 		    go_to_menu=false;
-            option=true;				
+            go_to_help=true;				
 		}
 	}
 
@@ -258,6 +276,7 @@ void mousehandling_mode()
             Mix_HaltMusic();
             sound=false;
             Mix_PlayMusic(citysound,-1);
+             showmodemenu= false;
 		    go_to_menu=false;
             start=false;
 			frame=0;
@@ -298,6 +317,7 @@ void mousehandling_mode()
             Mix_HaltMusic();
             sound=false;
             Mix_PlayMusic(forestsound,-1);
+             showmodemenu= false;
 		    go_to_menu=false;
             start=false;
 		    frame=0;

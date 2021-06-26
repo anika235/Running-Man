@@ -22,19 +22,21 @@ int main( int argc, char* args[] )
             while( !quit )
             {
                 pollevent();
+                if(pause && !go_to_help && !showhighscore && !go_to_menu)       continue;
+        
                 if(pause && go_to_menu)
                 {
                     mousehandling_middle();
                     continue;
                 }
-                if(pause && !option && !showhighscore)       continue;
+              
                 if(go_to_menu)     
                 {
                  mousehandling_start();
                 }
                 else
                 {
-                    if(option)
+                    if(go_to_help)
                     {
                         instruction();
                     }
@@ -95,6 +97,7 @@ int main( int argc, char* args[] )
     SDL_Delay(2000);
     nameprint();
     go_to_menu=true;
+    mode=0;
 }
 
 

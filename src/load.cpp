@@ -312,7 +312,7 @@ bool loadMedia()
          printf( "Failed to load collidesound %s\n",Mix_GetError() );
 		success = false;
     }
-    diesound= Mix_LoadWAV("sound/diesound.ogg");
+    diesound= Mix_LoadWAV("sound/diesound.mp3");
     if(diesound==NULL)
     {
          printf( "Failed to load diesound %s\n",Mix_GetError());

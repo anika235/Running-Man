@@ -21,7 +21,7 @@ extern int buttons,mouse_x,mouse_y,buttons1,mouse_x1,mouse_y1;
 extern bool go_to_menu;
 extern bool quit;
 extern bool pause;
-extern bool option;
+extern bool go_to_help;
 extern bool showmodemenu;
 extern bool showhighscore;
 

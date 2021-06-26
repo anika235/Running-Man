@@ -1,5 +1,5 @@
-01. bithi 110
-02. g 100
-03. bithi 80
-04. bithi 80
-05. anika 80
+01. empty 00
+02. empty 00
+03. empty 00
+04. empty 00
+05. empty 00
