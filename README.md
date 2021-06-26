@@ -37,4 +37,3 @@
        make && ./runningman
  
       ``` 
-* In case of playing with mouse make sure to put your mouse's  ```CURSOR``` inside the window.
