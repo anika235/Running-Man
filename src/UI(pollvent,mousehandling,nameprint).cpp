@@ -93,7 +93,7 @@ void pollevent()
                 break;
                                 
                 case SDL_SCANCODE_M:
-                if(!pause || go_to_menu)
+                if(!pause || go_to_menu || showhighscore || go_to_help)
                 {
                     if( Mix_PausedMusic() == 1 )
                     {
@@ -107,8 +107,7 @@ void pollevent()
                         Mix_PauseMusic();
                     }
                 }
-                break;                      
-                            
+                break;                                 
             }
                  
         }
