@@ -24,6 +24,7 @@ extern bool pause;
 extern bool go_to_help;
 extern bool showmodemenu;
 extern bool showhighscore;
+extern bool stop_music;
 
 void nameprint();
 void middle_menu();

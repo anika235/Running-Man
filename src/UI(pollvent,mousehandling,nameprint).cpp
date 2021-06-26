@@ -6,6 +6,7 @@ int Scoremode;
 bool go_to_help=false;
 bool showhighscore=false;
 bool quit;
+bool stop_music=false;
 
 void pollevent()
 {
@@ -75,6 +76,7 @@ void pollevent()
                 if(pause && !go_to_menu && !go_to_help && !showhighscore && !showmodemenu)
                 {
                     pause=false;
+                    if(!stop_music)
                     Mix_ResumeMusic();
                 }
                 break; 
@@ -99,12 +101,14 @@ void pollevent()
                     {
                         //Resume the music
                         Mix_ResumeMusic();
+                        stop_music=false;
                     }
                     //If the music is playing
                     else
                     {
                         //Pause the music
                         Mix_PauseMusic();
+                        stop_music=true;
                     }
                 }
                 break;                                 
